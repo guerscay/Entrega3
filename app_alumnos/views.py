@@ -8,23 +8,40 @@ from app_alumnos.forms import CrearAlumnoForm
 
 
 #### PAGINA DE INICIO
+
 def home(request):
     return render(request, 'app_alumnos/home.html', {})
 
-
 #### CREACION DE UN ALUMNO NUEVO
+
 def alumno_nuevo(request):
-    alumno = Alumnos(
-        nombre=random.choice(['Catriel', 'Paco', 'Maria', 'Nicky', 'Karol']),
-        apellido=random.choice(['Lopez', 'Gonzalez', 'Martinez', 'Diaz', 'Perez']),
-        email='generico@gmail.com',
-        anio_nacimiento=random.choice([1980, 1990, 2000, 2010])
-    )
-    alumno.save()
-    return render(request, 'app_alumnos/alumno_nuevo.html', {'alumno': alumno})
+     
+    formulario = CrearAlumnoForm()
+    
+    if request.method == 'POST':
+        formulario = CrearAlumnoForm(request.POST)   
+        if formulario.is_valid():
+            
+            data = formulario.cleaned_data
+            
+            auto = Alumnos(nombre=data.get('nombre'), 
+                           apellido =data.get('apellido'), 
+                           anio_nacimiento=data.get('anio_nacimiento'), 
+                            email = data.get('email'))
+            auto.save() 
+            
+            return render(request, 'app_alumnos/home.html',{})
+
+    return render(request, 'app_alumnos/alumno_nuevo.html', {'formulario':formulario}) #mi contexto ahora es el formulario
 
 
-#### PRUEBA
+
+
+
+
+
+
+#### BUSCAR UN ALUMNO
 def alumno_buscar(request):
     
     return render(request, 'app_alumnos/alumno_buscar.html', {})

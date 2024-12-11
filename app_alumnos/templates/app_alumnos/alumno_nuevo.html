@@ -5,3 +5,10 @@ Coolates
 {% endblock title_head %}
 
 {% block button %} Crear Alumno Nuevo {% endblock button %} 
+
+{% block main %}
+<form action={% url "app_alumnos/alumno_nuevo" %}>
+
+</form>
+
+{% endblock main %}

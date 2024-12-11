@@ -4,7 +4,7 @@ from django.template import Template, Context, loader
 from django.shortcuts import render 
 from app_alumnos.models import Alumnos
 import random
-#from inicio.forms import CrearAuto, BuscarAuto # formularios!!
+from app_alumnos.forms import CrearAlumnoForm
 
 
 #### PAGINA DE INICIO
